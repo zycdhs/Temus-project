@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chatbot-for-GP-News</title>
+    <script>
+        // news-section load news dynamically
+         document.addEventListener("DOMContentLoaded", function() {
+            fetch("/news")
+                .then(
+                    response => {
+                    console.log(response)
+                    return response.json()
+                })
+                .then(data => {
+                    console.log(data)
+                    let newsContainer = document.getElementById("news-section");
+                    let qnsContainer = document.getElementById("qns-section")
+                    
+                    data.forEach(news => {
+                        let newsDiv = document.createElement("div");
+                        newsDiv.id = "news"
+                        newsDiv.innerHTML = `<div class="title">${news.title}</div> <div class="topic">#${news.topic}</div> <div class="content-summary">${news.summary}</div>`;
+                        newsContainer.appendChild(newsDiv);
+
+                        let qnsDiv = document.createElement("div")
+                        qnsDiv.id = "question"
+                        qnsDiv.innerHTML = `<div class="qn-content">${news.question}</div>`;
+                        newsContainer.appendChild(qnsDiv);
+                    });
+            
+                });
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+    <!-- This is for the daliy-news section, which display news scarping from different websites -->
+    <div id="news-section"></div>
+
+     <!-- This is for the quiz section -->
+     <div class="quiz">
+        <div class="title">Quiz</div>
+        <div id="qns-section"></div>
+        <div class="quiz-form">
+            <form>
+                <textarea placeholder="Answer..." class="message-input" required></textarea>
+                <br>
+                <button type="submit">Submit</button>
+            </form>
+        </div>       
+        <div class="feedbacks">
+            <div class="content">feedbacks</div>
+        </div>
+
+    </div>
+</div>
+</body>
+</html>
