@@ -1,1 +1,2 @@
-# This is for Temus project 
+# Temus project 
+##  A GP summariser 
